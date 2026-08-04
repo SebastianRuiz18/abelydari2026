@@ -1,0 +1,104 @@
+---
+// src/components/RSVPBTN.astro
+---
+
+<a href="/rsvp" class="details-btn-wrapper">
+  <div class="text-content">
+    <h2 class="rsvp-title">Confirmar<br/>Asistencia</h2>
+
+    <p class="click-here">CLIC AQUÍ</p>
+  </div>
+  <img src="/RSVPBTN/RSVPenvelope.png" alt="Sobre" class="envelope-img" />
+</a>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Montserrat:wght@400;500;600&display=swap');
+
+  .details-btn-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+
+  .details-btn-wrapper:hover {
+    transform: scale(1.03);
+  }
+
+  /* =========================================
+     IMÁGENES Y CAPAS
+     ========================================= */
+  .envelope-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%; /* Mantenemos proporción */
+    height: auto;
+    display: block;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* =========================================
+     CONTENIDO DE TEXTO
+     ========================================= */
+  .text-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    /* Ajuste vertical para centrar el bloque de texto en el sobre */
+    top: 3%; 
+  }
+
+  /* =========================================
+     TIPOGRAFÍA DESKTOP (Matemática basada en 400px base)
+     ========================================= */
+  .rsvp-title {
+    font-family: 'Pinyon Script', cursive;
+    color: #000000;
+    /* Ligeramente más pequeño para que quepa "Asistencia" sin romperse */
+    font-size: 2.8rem; 
+    font-weight: 400;
+    line-height: 0.9; /* Pegamos las líneas para look manuscrito */
+    margin: 0 0 45% 0; /* Empujamos Click Here hacia abajo */
+  }
+
+  .click-here {
+    font-family: 'Montserrat', sans-serif;
+    color: #000000;
+    font-size: 0.7rem; 
+    letter-spacing: 4px;
+    font-weight: 500; /* Medium para que resalte */
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  /* =========================================
+     TIPOGRAFÍA MOBILE (Recalculada con tus fórmulas vw)
+     ========================================= */
+  @media (max-width: 600px) {
+    .text-content {
+      top: 5%; /* Un poco más abajo en mobile */
+    }
+
+    .rsvp-title {
+      /* Ajustado proporcionalmente al nuevo tamaño base */
+      font-size: 5.5vw;
+      margin-bottom: 10vw; /* Margen proporcional */
+    }
+
+    .click-here {
+      font-size: 2vw;
+      letter-spacing: 0.8vw;
+    }
+  }
+</style>

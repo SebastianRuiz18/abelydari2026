@@ -1,0 +1,535 @@
+---
+// src/pages/details.astro
+import Polaroid from '../components/Polaroid.astro'; 
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abel & Dariana - Boda Valle de Guadalupe</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    
+    <header class="details-hero">
+      <div class="hero-bg"></div>
+      <h1 class="hero-title">Los Detalles</h1>
+    </header>
+
+    <main class="details-content">
+      
+      <section class="info-block fade-in-section">
+        <h2 class="section-title">Fecha y Ubicación</h2>
+        
+        <div class="info-item">
+          <h3>FECHA</h3>
+          <p>24 de Octubre de 2026</p>
+        </div>
+        
+        <div class="info-item" style="margin-top: 20px;">
+          <h3>CEREMONIA RELIGIOSA - 2:00 PM</h3>
+          <p>Capilla de Nuestra Señora de Guadalupe<br/>Valle de Guadalupe, B.C.<br/>Héroes de Baja California #848<br/>22753 El Porvenir, B.C., México</p>
+          <a href="https://maps.app.goo.gl/rTJrEhQhEFE67RG9A" target="_blank" rel="noopener noreferrer" class="hotel-btn">VER MAPA</a>
+        </div>
+
+        <div class="info-item" style="margin-top: 20px;">
+          <h3>RECEPCIÓN - 6:00 PM</h3>
+          <p>Finca el Mirador del Valle<br/>Valle de Guadalupe, B.C.<br/>México 3 Km.81, 5 Ejido<br/>22750 Francisco Zarco, B.C., México</p>
+          <a href="https://maps.app.goo.gl/Q9TAVBwsNayd3AxNA" target="_blank" rel="noopener noreferrer" class="hotel-btn">VER MAPA</a>
+        </div>
+      </section>
+
+      <section class="info-block fade-in-section">
+        <h2 class="section-title">Itinerario</h2>
+        
+        <div class="timeline-grid">
+          
+          <div class="timeline-item">
+            <img src="/Details/rings.png" alt="Anillos" class="timeline-icon" />
+            <h3 class="timeline-time">2:00 PM</h3>
+            <p class="timeline-desc">Ceremonia Religiosa</p>
+          </div>
+
+          <div class="timeline-item">
+            <img src="/Details/champagne.png" alt="Coctel" class="timeline-icon" />
+            <h3 class="timeline-time">5:00 PM</h3>
+            <p class="timeline-desc">Cóctel</p>
+          </div>
+
+          <div class="timeline-item">
+            <img src="/Details/dinner.png" alt="Cena" class="timeline-icon" />
+            <h3 class="timeline-time">6:30 PM</h3>
+            <p class="timeline-desc">Cena</p>
+          </div>
+
+          <div class="timeline-item">
+            <img src="/Details/disco.png" alt="Fiesta" class="timeline-icon" />
+            <h3 class="timeline-time">9:00 PM</h3>
+            <p class="timeline-desc">Todos a la pista</p>
+          </div>
+
+          <div class="timeline-item" style="grid-column: 1 / -1; margin-top: 20px;">
+            <img src="/Details/car.png" alt="Despedida" class="timeline-icon" />
+            <h3 class="timeline-time">12:00 AM</h3>
+            <p class="timeline-desc">Fin de la Boda</p>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="info-block fade-in-section">
+        <h2 class="section-title">Hospedaje</h2>
+        
+        <img src="/Details/portaequipajes.png" alt="Equipaje" class="hotel-icon" />
+
+        <div class="info-item">
+          <h3>FINCA EL MIRADOR DEL VALLE</h3>
+          <p>México 3 Km.81, 5 Ejido<br/>22750 Francisco Zarco, B.C., México</p>
+          <a href="https://maps.app.goo.gl/Q9TAVBwsNayd3AxNA" target="_blank" rel="noopener noreferrer" class="hotel-btn">VER MAPA</a>
+        </div>
+
+        <div class="info-item" style="margin-top: 20px;">
+          <h3>HOTEL BOTTEGA BOUTIQUE</h3>
+          <p>Carretera Federal 3 Km 82.5<br/>22750 El Porvenir, B.C., México</p>
+          <a href="https://maps.app.goo.gl/53K8RebCtihPfTZt5" target="_blank" rel="noopener noreferrer" class="hotel-btn">VER MAPA</a>
+        </div>
+
+        <div class="info-item" style="margin-top: 20px;">
+          <h3>HACIENDA GUADALUPE HOTEL</h3>
+          <p>KM 81.5, México 3<br/>22750 Francisco Zarco, B.C., México</p>
+          <a href="https://maps.app.goo.gl/K4F6vMJmnUZbig5o9" target="_blank" rel="noopener noreferrer" class="hotel-btn">VER MAPA</a>
+        </div>
+      </section>
+
+      <section class="info-block fade-in-section">
+        <h2 class="section-title">Detalles</h2>
+        <div class="info-item">
+          <h3>CÓDIGO DE VESTIMENTA</h3>
+          <p>
+            <b>Vestimenta Formal</b><br><br>
+            <b>Hombres:</b> Traje Formal.<br>
+            <b>Mujeres:</b> Vestido Largo.<br>
+            Nos encantaría que nos acompañaran vistiendo<br>tonos otoñales inspirados en esta paleta:
+          </p>
+            
+          <div class="color-palette">
+            <div class="color-circle" style="background-color: #A35233;"></div> <!-- Terracota -->
+            <div class="color-circle" style="background-color: #6B705C;"></div> <!-- Olivo -->
+            <div class="color-circle" style="background-color: #E2A76F;"></div> <!-- Mostaza Otoño -->
+            <div class="color-circle" style="background-color: #F4D3D4;"></div> <!-- Baby Pink -->
+            <div class="color-circle" style="background-color: #4A3B36;"></div> <!-- Neutro/Café -->
+          </div>
+        </div>
+        
+        <div class="info-item" style="margin-top: 40px;">
+          <h3>NIÑOS</h3>
+          <p>Respetuosamente, <b>No Niños.</b><br>Esperamos que puedan disfrutar<br>de una velada solo para adultos.</p>
+        </div>
+
+        <!-- NUEVO BOTÓN DE RSVP DIRECTO -->
+        <div class="info-item" style="margin-top: 50px;">
+          <h3>ASISTENCIA</h3>
+          <a href="/rsvp" class="hotel-btn" style="margin-top: 5px;">CONFIRMAR ASISTENCIA</a>
+        </div>
+      </section>
+
+      <section class="info-block fade-in-section">
+        <h2 class="section-title">Regalos</h2>
+        
+        <img src="/Details/giftangel.png" alt="Regalo" class="gifts-icon" />
+
+        <div class="info-item">
+          <p>Su presencia es nuestro mejor regalo, pero si desean tener un detalle adicional con nosotros para iniciar esta nueva etapa, tendremos un buzón para sobres en la recepción.</p>
+        </div>
+      </section>
+
+      <div class="polaroid-collage fade-in-section">
+        <div class="polaroid-left">
+          <Polaroid imgSrc="/Details/polaroidL.jpg" rotation="-6deg" />
+        </div>
+        <div class="polaroid-right">
+          <Polaroid imgSrc="/Details/polaroidR.jpg" rotation="5deg" />
+        </div>
+      </div>
+
+      <div class="closing-section fade-in-section">
+        <p class="with-love">CON CARIÑO</p>
+        <h2 class="closing-names">Abel & Dariana</h2>
+        <p>Para cualquier duda, comunícate al:<br>619-917-5551</p>
+      </div>
+
+      <a href="/invitation" class="go-back-btn fade-in-section">
+        <svg viewBox="0 0 320 512" class="fa-arrow-left">
+          <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+        </svg>
+        REGRESAR
+      </a>
+
+      <a href="https://www.instagram.com/madebysliver/" target="_blank" rel="noopener noreferrer" class="made-by-sliver fade-in-section">
+        MADE BY SLIVER
+      </a>
+
+    </main>
+
+    <script is:inline>
+      document.addEventListener("DOMContentLoaded", function() {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.1 
+        });
+
+        const hiddenElements = document.querySelectorAll('.fade-in-section');
+        hiddenElements.forEach((el) => observer.observe(el));
+      });
+    </script>
+
+  </body>
+</html>
+
+<style>
+  /* =========================================
+     RESET Y BASES
+     ========================================= */
+  body {
+    margin: 0;
+    background-color: #F7F4EF; 
+    color: #2A2321;
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+  }
+
+  .fade-in-section {
+    opacity: 0;
+    transform: translateY(30px); 
+    transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: opacity, visibility; 
+  }
+
+  .fade-in-section.is-visible {
+    opacity: 1;
+    transform: none; 
+  }
+
+  /* =========================================
+     HERO SECTION
+     ========================================= */
+  .details-hero {
+    position: relative;
+    width: 100%;
+    height: 60vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/Details/hero.jpg'); 
+    background-size: cover;
+    background-position: center 30%; 
+    z-index: 1;
+    filter: brightness(0.7); 
+  }
+
+  .hero-title {
+    position: relative;
+    z-index: 2;
+    font-family: 'Pinyon Script', cursive;
+    color: #ffffff;
+    font-size: 8rem;
+    font-weight: 400;
+    margin: 0;
+    
+    opacity: 0;
+    transform: scale(0.8);
+    animation: scaleUp 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+
+  @keyframes scaleUp {
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* =========================================
+     CONTENIDO
+     ========================================= */
+  .details-content {
+    width: 100%;
+    max-width: 600px; 
+    margin: 0 auto;
+    padding: 80px 20px 60px 20px; 
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 80px; 
+  }
+
+  .info-block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .section-title {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 4.5rem;
+    font-weight: 400;
+    line-height: 0.9;
+    margin: 0 0 10px 0;
+    color: inherit; 
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; 
+  }
+
+  .info-item h3 {
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0;
+    color: inherit;
+  }
+
+  .info-item p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin: 0;
+    color: #4a403d; 
+  }
+
+  /* =========================================
+     TIMELINE GRID
+     ========================================= */
+  .timeline-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 50px;
+    column-gap: 40px;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .timeline-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .timeline-icon {
+    width: 85px; 
+    height: 85px;
+    object-fit: contain; 
+    margin-bottom: 20px;
+  }
+
+  .timeline-time {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 6px; 
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: inherit;
+  }
+
+  .timeline-desc {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: inherit;
+    margin: 0;
+  }
+
+  /* =========================================
+     BOTONES Y COLORES
+     ========================================= */
+  .hotel-icon {
+    width: 100px;
+    height: auto;
+    object-fit: contain;
+    margin: 10px 0 20px 0; 
+  }
+
+  .hotel-btn {
+    display: inline-block;
+    background-color: #5B2326; 
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 16px 35px;
+    margin-top: 15px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .hotel-btn:hover {
+    background-color: #3D1517; 
+    transform: scale(1.02);
+  }
+
+  .color-palette {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .color-circle {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%; 
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.15); 
+  }
+
+  .gifts-icon {
+    width: 120px; 
+    height: auto;
+    object-fit: contain;
+    margin: 10px 0 20px 0;
+  }
+
+  /* =========================================
+     POLAROIDS Y FOOTER
+     ========================================= */
+  .polaroid-collage {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    height: 350px; 
+    margin: 20px auto 0 auto;
+  }
+
+  .polaroid-left {
+    position: absolute;
+    top: 5%;
+    left: 0%;
+    width: 52%;
+    z-index: 2; 
+  }
+
+  .polaroid-right {
+    position: absolute;
+    top: 0;
+    right: 0%;
+    width: 52%;
+    z-index: 1; 
+  }
+
+  .closing-section {
+    margin-top: 40px;
+  }
+
+  .with-love {
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0 0 20px 0;
+  }
+
+  .closing-names {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 5rem;
+    font-weight: 400;
+    margin: 0;
+    line-height: 0.8;
+  }
+
+  .go-back-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: inherit; 
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .go-back-btn:hover {
+    opacity: 0.7;
+    transform: translateX(-5px);
+  }
+
+  .fa-arrow-left {
+    width: 10px;
+    height: 10px;
+    fill: currentColor;
+  }
+
+  .made-by-sliver {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 5px;
+    color: inherit; 
+    text-decoration: none;
+    opacity: 0.35;
+    transition: opacity 0.4s ease;
+    text-align: center;
+  }
+
+  .made-by-sliver:hover {
+    opacity: 1;
+  }
+
+  /* =========================================
+     RESPONSIVE DESIGN (MOBILE)
+     ========================================= */
+  @media (max-width: 600px) {
+    .details-hero { height: 50vh; }
+    .hero-title { font-size: 4.5rem; }
+    .details-content { padding: 60px 20px; gap: 60px; }
+    
+    .section-title { font-size: 3.5rem; }
+    .info-item h3 { font-size: 0.7rem; }
+    .info-item p { font-size: 0.85rem; }
+
+    .timeline-grid { row-gap: 40px; column-gap: 20px; }
+    .timeline-icon { width: 65px; height: 65px; margin-bottom: 15px; }
+    .timeline-time { font-size: 0.7rem; letter-spacing: 4px; }
+    .timeline-desc { font-size: 0.9rem; }
+
+    .hotel-btn { font-size: 0.7rem; padding: 14px 25px; letter-spacing: 3px; }
+    
+    .color-circle { width: 45px; height: 45px; }
+    .color-palette { gap: 10px; }
+
+    .gifts-icon { width: 90px; }
+
+    .polaroid-collage { height: 250px; max-width: 320px; }
+    .polaroid-left { width: 58%; left: -5%; }
+    .polaroid-right { width: 58%; right: -5%; }
+
+    .closing-names { font-size: 3.8rem; }
+    .go-back-btn { font-size: 0.7rem; }
+    .made-by-sliver { font-size: 0.5rem; letter-spacing: 4px; }
+  }
+</style>

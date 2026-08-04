@@ -1,0 +1,156 @@
+---
+// src/components/Countdown.astro
+---
+
+<div class="countdown-wrapper">
+  <p class="subtitle">LA CUENTA REGRESIVA HA COMENZADO</p>
+  
+  <div class="timer-container">
+    <div class="time-block">
+      <span id="days" class="number">000</span>
+      <span class="label">DÍAS</span>
+    </div>
+    <span class="colon">:</span>
+    <div class="time-block">
+      <span id="hours" class="number">00</span>
+      <span class="label">HORAS</span>
+    </div>
+    <span class="colon">:</span>
+    <div class="time-block">
+      <span id="minutes" class="number">00</span>
+      <span class="label">MINUTOS</span>
+    </div>
+    <span class="colon">:</span>
+    <div class="time-block">
+      <span id="seconds" class="number">00</span>
+      <span class="label">SEGUNDOS</span>
+    </div>
+  </div>
+
+  <p class="contact-text">
+    Para cualquier duda, comunícate al:<br/>
+    619-917-5551
+  </p>
+
+  <p class="with-love">CON CARIÑO</p>
+  <h2 class="names-script">Abel & Dariana</h2>
+</div>
+
+<style>
+  .countdown-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 60px;
+    color: #333;
+  }
+
+  .subtitle, .with-love {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+
+  .with-love {
+    margin-top: 40px;
+    margin-bottom: 0;
+    font-size: 0.75rem;
+  }
+
+  .timer-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+
+  .time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px; 
+  }
+
+  .number {
+    font-family: 'Times New Roman', Times, serif; 
+    font-size: 4rem;
+    font-weight: 400;
+    line-height: 1;
+    font-variant-numeric: tabular-nums; 
+  }
+
+  .colon {
+    font-size: 3.5rem;
+    line-height: 1;
+    font-family: 'Times New Roman', Times, serif;
+  }
+
+  .label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    margin-top: 12px;
+  }
+
+  .contact-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .names-script {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 4.5rem;
+    margin: 10px 0;
+    font-weight: 400;
+  }
+
+  @media (max-width: 768px) {
+    .number { font-size: 2.8rem; }
+    .colon { font-size: 2.5rem; margin-top: 5px; }
+    .time-block { width: 60px; }
+    .names-script { font-size: 3.5rem; }
+    .subtitle { font-size: 0.75rem; }
+  }
+</style>
+
+<script>
+  // Fecha exacta: 24 de Octubre de 2026 a las 14:00 (Hora del Pacífico para Valle de Guadalupe)
+  const targetDate = new Date("2026-10-24T14:00:00-07:00").getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime(); 
+    const distance = targetDate - now;
+
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+
+    if (distance < 0) {
+      if(daysEl) daysEl.innerText = "000";
+      if(hoursEl) hoursEl.innerText = "00";
+      if(minutesEl) minutesEl.innerText = "00";
+      if(secondsEl) secondsEl.innerText = "00";
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    if(daysEl) daysEl.innerText = days.toString();
+    if(hoursEl) hoursEl.innerText = hours.toString().padStart(2, '0');
+    if(minutesEl) minutesEl.innerText = minutes.toString().padStart(2, '0');
+    if(secondsEl) secondsEl.innerText = seconds.toString().padStart(2, '0');
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>

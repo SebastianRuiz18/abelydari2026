@@ -1,0 +1,390 @@
+---
+// src/pages/story.astro
+import Polaroid from '../components/Polaroid.astro';
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>La Invitación - Abel & Dariana</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    
+    <header class="story-hero animate-up">
+      <h1 class="hero-title">La Invitación</h1>
+      <p class="hero-subtitle">CELEBREMOS JUNTOS</p>
+    </header>
+
+    <main class="story-content">
+      
+      <!-- Bloque 1: El Lema y los Papás -->
+      <section class="chapter-block fade-in-section">
+        <div class="chapter-text">
+          <h2 class="chapter-title">La Familia</h2>
+          <p>
+            Con la bendición de Dios y la presencia de nuestra familia:
+            <br><br>
+            <b>[Nombre Papá Novia] & [Nombre Mamá Novia]</b><br>
+            <b>[Nombre Papá Novio] & [Nombre Mamá Novio]</b>
+          </p>
+        </div>
+        <div class="chapter-image right-tilt">
+          <Polaroid imgSrc="/Polaroid/foto1.jpg" rotation="4deg" />
+        </div>
+      </section>
+
+      <!-- Bloque 2: Los Novios y la Fecha -->
+      <section class="chapter-block reverse-block fade-in-section">
+        <div class="chapter-text">
+          <h2 class="chapter-title">Abel & Dariana</h2>
+          <p>
+            Tenemos el honor de invitarlos a celebrar nuestras vidas en matrimonio el próximo:
+            <br><br>
+            <b>24 de Octubre de 2026</b>
+          </p>
+        </div>
+        <div class="chapter-image left-tilt">
+          <Polaroid imgSrc="/Polaroid/foto3.jpg" rotation="-5deg" />
+        </div>
+      </section>
+
+      <!-- Bloque 3: La Cita Bíblica -->
+      <section class="chapter-block fade-in-section">
+        <div class="chapter-text">
+          <h2 class="chapter-title">La Promesa</h2>
+          <p>
+            “El amor es paciente, es bondadoso. Todo lo disculpa, todo lo cree, todo lo espera, todo lo soporta.”
+            <br><br>
+            <i>— 1 Corintios 13:4-7</i>
+          </p>
+        </div>
+        <div class="chapter-image right-tilt">
+          <Polaroid imgSrc="/Polaroid/foto2.jpg" rotation="3deg" />
+        </div>
+      </section>
+
+      <div class="closing-section fade-in-section">
+        <p class="with-love">LOS ESPERAMOS PARA CELEBRAR.</p>
+      </div>
+
+      <div class="closing-section fade-in-section">
+        <p class="with-love">CON CARIÑO</p>
+        <h2 class="closing-names">Abel & Dariana</h2>
+        <p class="contact-text">Para cualquier duda, comunícate al:<br>
+        619-917-5551</p>
+      </div>
+
+      <a href="/invitation" class="go-back-btn fade-in-section">
+        <svg viewBox="0 0 320 512" class="fa-arrow-left">
+          <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+        </svg>
+        REGRESAR
+      </a>
+
+      <a href="https://www.instagram.com/madebysliver/" target="_blank" rel="noopener noreferrer" class="made-by-sliver fade-in-section">
+        MADE BY SLIVER
+      </a>
+
+    </main>
+
+    <script is:inline>
+      document.addEventListener("DOMContentLoaded", function() {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.15 
+        });
+
+        const hiddenElements = document.querySelectorAll('.fade-in-section');
+        hiddenElements.forEach((el) => observer.observe(el));
+      });
+    </script>
+
+  </body>
+</html>
+
+<style>
+  /* =========================================
+     RESET Y BASES
+     ========================================= */
+  body {
+    margin: 0;
+    /* MAGIA AQUÍ: Fondo y Texto Consistentes */
+    background-color: #F7F4EF; 
+    font-family: 'Montserrat', sans-serif;
+    color: #2A2321;
+    overflow-x: hidden;
+  }
+
+  /* =========================================
+     ANIMACIÓN SCROLL
+     ========================================= */
+  .fade-in-section {
+    opacity: 0;
+    transform: translateY(40px); 
+    transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: opacity, visibility; 
+  }
+
+  .fade-in-section.is-visible {
+    opacity: 1;
+    transform: none; 
+  }
+
+  .animate-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* =========================================
+     HERO SECTION
+     ========================================= */
+  .story-hero {
+    width: 100%;
+    padding: 100px 20px 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .hero-title {
+    font-family: 'Pinyon Script', cursive;
+    color: inherit;
+    font-size: 7rem;
+    font-weight: 400;
+    margin: 0;
+    line-height: 0.8;
+  }
+
+  .hero-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 6px;
+    font-weight: 500;
+    /* Acento en Burgundy */
+    color: #5B2326; 
+    text-transform: uppercase;
+    margin-top: 20px;
+  }
+
+  /* =========================================
+     CONTENIDO DE LA HISTORIA
+     ========================================= */
+  .story-content {
+    width: 100%;
+    max-width: 900px; 
+    margin: 0 auto;
+    padding: 40px 20px 60px 20px; 
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 120px; 
+  }
+
+  .chapter-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 60px;
+  }
+
+  .reverse-block {
+    flex-direction: row-reverse; 
+  }
+
+  .chapter-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .chapter-title {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 4.5rem;
+    font-weight: 400;
+    color: inherit;
+    margin: 0;
+    line-height: 0.9;
+  }
+
+  .chapter-text p {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    /* Texto secundario en café medio */
+    color: #4A403D; 
+    margin: 0;
+    text-align: justify; 
+  }
+
+  .chapter-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .chapter-image :global(.polaroid-wrapper) {
+    max-width: 320px; 
+    filter: drop-shadow(0px 15px 25px rgba(0,0,0,0.1)); 
+  }
+
+  /* =========================================
+     CLOSING Y BOTÓN
+     ========================================= */
+  .closing-section {
+    margin-top: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .with-love {
+    font-size: 0.85rem;
+    letter-spacing: 5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: inherit;
+    margin: 0 0 20px 0;
+  }
+
+  .closing-names {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 5rem;
+    font-weight: 400;
+    margin: 0;
+    line-height: 0.8;
+  }
+
+  .contact-text {
+    font-size: 0.9rem;
+    color: #4A403D;
+    margin-top: 30px;
+    line-height: 1.8;
+  }
+
+  .go-back-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: inherit; 
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    margin-top: 40px;
+  }
+
+  .go-back-btn:hover {
+    opacity: 0.7;
+    transform: translateX(-5px);
+  }
+
+  .fa-arrow-left {
+    width: 10px;
+    height: 10px;
+    fill: currentColor;
+  }
+
+  /* =========================================
+     FIRMA SLIVER
+     ========================================= */
+  .made-by-sliver {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 5px;
+    color: inherit; 
+    text-decoration: none;
+    opacity: 0.35;
+    transition: opacity 0.4s ease;
+    margin-top: 80px; 
+    text-align: center;
+  }
+
+  .made-by-sliver:hover {
+    opacity: 1;
+  }
+
+  /* =========================================
+     RESPONSIVE DESIGN (MOBILE)
+     ========================================= */
+  @media (max-width: 800px) {
+    .story-hero {
+      padding: 80px 20px 20px 20px;
+    }
+
+    .hero-title {
+      font-size: 5rem;
+    }
+
+    .story-content {
+      gap: 80px;
+      padding-bottom: 40px;
+    }
+
+    .chapter-block, .reverse-block {
+      flex-direction: column;
+      gap: 40px;
+      text-align: center;
+    }
+
+    .chapter-text p {
+      text-align: center; 
+    }
+
+    .chapter-title {
+      font-size: 3.8rem;
+    }
+
+    .chapter-image :global(.polaroid-wrapper) {
+      max-width: 280px; 
+    }
+
+    .with-love {
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+    }
+
+    .closing-names {
+      font-size: 3.8rem;
+    }
+
+    .contact-text {
+      font-size: 0.85rem;
+    }
+
+    .go-back-btn {
+      font-size: 0.7rem;
+    }
+
+    .made-by-sliver {
+      font-size: 0.5rem;
+      letter-spacing: 4px;
+      margin-top: 60px;
+    }
+  }
+</style>

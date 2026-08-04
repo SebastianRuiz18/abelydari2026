@@ -1,0 +1,152 @@
+---
+// src/components/invFooter.astro
+---
+
+<footer class="inv-footer">
+  <div class="bg-pan"></div>
+
+  <div class="footer-content">
+    <img src="/monogram.png" alt="Monograma" class="footer-monogram" />
+    
+    <a href="/" class="go-back-btn">
+      <svg viewBox="0 0 320 512" class="fa-arrow-left">
+        <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+      </svg>
+      REGRESAR
+    </a>
+  </div>
+
+  <a href="https://www.instagram.com/madebysliver/" target="_blank" rel="noopener noreferrer" class="made-by-sliver">
+    MADE BY SLIVER
+  </a>
+</footer>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+
+  .inv-footer {
+    position: relative;
+    width: 100%;
+    height: 450px; 
+    overflow: hidden; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1a1a1a; 
+  }
+
+  .bg-pan {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/invFooter/footer-bg.jpg'); 
+    
+    /* MAGIA PARA DESKTOP: 'cover' fuerza a la imagen a rellenar el 100% de la caja, sin importar su orientación */
+    background-size: cover; 
+    background-position: center center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    filter: brightness(0.45);
+    /* En desktop no ponemos animación, se queda estática y elegante */
+  }
+
+  .footer-content {
+    position: relative;
+    z-index: 2; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; 
+  }
+
+  .footer-monogram {
+    width: 140px; 
+    height: auto;
+    filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.4)); 
+  }
+
+  .go-back-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .go-back-btn:hover {
+    opacity: 1;
+    transform: translateX(-5px); 
+  }
+
+  .fa-arrow-left {
+    width: 10px;
+    height: 10px;
+    fill: currentColor; 
+  }
+
+  .made-by-sliver {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 5px;
+    color: #ffffff;
+    text-decoration: none;
+    opacity: 0.35;
+    transition: opacity 0.4s ease;
+  }
+
+  .made-by-sliver:hover {
+    opacity: 1;
+  }
+
+  /* =========================================
+     RESPONSIVE Y PANEOS EN CELULAR
+     ========================================= */
+  @media (max-width: 600px) {
+    .inv-footer {
+      height: 350px; 
+    }
+    
+    .bg-pan {
+      /* Forzamos la foto al 130% de ancho para tener espacio lateral sobrante y poder panear */
+      background-size: 130% auto; 
+      animation: panImage 35s ease-in-out infinite alternate;
+    }
+
+    @keyframes panImage {
+      0%   { background-position: 0% 50%; }   
+      15%  { background-position: 0% 50%; }   
+      85%  { background-position: 100% 50%; } 
+      100% { background-position: 100% 50%; } 
+    }
+
+    .footer-monogram {
+      width: 110px;
+    }
+
+    .go-back-btn {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+    }
+
+    .made-by-sliver {
+      bottom: 20px;
+      font-size: 0.5rem;
+      letter-spacing: 4px;
+    }
+  }
+</style>

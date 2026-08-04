@@ -1,0 +1,283 @@
+---
+// src/pages/invitation.astro
+import OpenedEnvelope from '../components/OpenedEnvelope.astro';
+import MiniSaveTheDate from '../components/MiniSaveTheDate.astro';
+import Polaroid from '../components/Polaroid.astro'; 
+import Countdown from '../components/Countdown.astro';
+import DetailsBTN from '../components/DetailsBTN.astro';
+import InvFooter from '../components/invFooter.astro';
+import Detail from '../components/Detail.astro';
+import RSVPBTN from '../components/RSVPBTN.astro';
+import StoryBTN from '../components/storyBTN.astro';
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abel & Dariana - Boda Valle de Guadalupe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <main class="invitation-container">
+
+      <section class="section section-hero">
+        <div class="hero-overlap">
+          
+          <div class="envelope-wrapper animate-up delay-1">
+            <OpenedEnvelope />
+          </div>
+          
+          <div class="std-wrapper animate-up delay-2">
+            <MiniSaveTheDate />
+          </div>
+
+          <div class="polaroid-hero animate-up delay-3">
+            <Polaroid imgSrc="/Polaroid/foto1.jpg" rotation="-8deg" />
+          </div>
+
+          <div class="details-hero animate-up delay-4">
+            <DetailsBTN />
+          </div>
+
+          <div class="detail-wrapper animate-up delay-5">
+            <Detail />
+          </div>
+
+          <div class="rsvp-wrapper animate-up delay-6">
+            <RSVPBTN />
+          </div>
+
+          <div class="polaroid-hero p2 animate-up delay-7">
+            <Polaroid imgSrc="/Polaroid/foto2.jpg" rotation="8deg" />
+          </div>
+
+          <div class="polaroid-hero p3 animate-up delay-7">
+            <Polaroid imgSrc="/Polaroid/foto3.jpg" rotation="-8deg" />
+          </div>
+
+          <div class="polaroid-hero p4 animate-up delay-7">
+            <Polaroid imgSrc="/Polaroid/foto4.jpg" rotation="8deg" />
+          </div>
+
+          <div class="story-wrapper animate-up delay-7"> 
+            <StoryBTN />
+          </div>
+
+        </div>
+      </section>
+
+      <section class="section section-countdown animate-up delay-7" style="padding-bottom: 80px;">
+        <Countdown />
+      </section>
+      
+    </main>
+
+    <InvFooter />
+
+  </body>
+</html>
+
+<style>
+  /* =========================================
+     RESET Y BASES
+     ========================================= */
+  body {
+    margin: 0;
+    background-color: #F7F4EF; /* Fondo crema/arena otoñal */
+    color: #2A2321; /* Texto café oscuro cálido */
+    overflow-x: hidden;
+  }
+
+  .invitation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 40px;
+    padding-bottom: 100px;
+    padding-top: 5vh;
+  }
+
+  .section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* =========================================
+     HERO OVERLAP (El collage principal)
+     ========================================= */
+  .hero-overlap {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    height: 1050px; 
+    margin: 0 auto 900px auto; 
+  }
+
+  .envelope-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 62%;
+    z-index: 1; 
+  }
+
+  .polaroid-hero {
+    position: absolute;
+    top: 55%; 
+    left: 5%; 
+    width: 30%; 
+    z-index: 0; 
+  }
+
+  .p2 {
+    top: 124%; 
+    left: 57%; 
+    width: 30%; 
+  }
+
+  .p3 {
+    top: 137%; 
+    right: 57%; 
+    width: 30%; 
+  }
+
+  .p4 {
+    top: 160%; 
+    right: 57%; 
+    width: 30%; 
+    z-index: -1;
+  }
+
+  .details-hero {
+    position: absolute;
+    top: 73%; 
+    left: 8%; 
+    width: 50%; 
+    z-index: 0; 
+  }
+
+  .std-wrapper {
+    position: absolute;
+    top: 30%;
+    right: 10%;
+    width: 50%;
+    z-index: 4; 
+    transform: rotate(1deg);
+  }
+
+  .detail-wrapper {
+    position: absolute;
+    top: 88%;
+    right: 10%;
+    width: 45%;
+    z-index: 2; 
+    transform: rotate(1deg);
+  }
+
+  .rsvp-wrapper {
+    position: absolute;
+    top: 100%;
+    right: 35%;
+    width: 65%;
+    z-index: 2; 
+    transform: rotate(1deg);
+  }
+
+  .story-wrapper {
+    position: absolute;
+    top: 135%;
+    left: 25%;
+    width: 65%;
+    z-index: 4; 
+  }
+
+  /* =========================================
+     ANIMACIONES
+     ========================================= */
+  .animate-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+
+  .delay-1 { animation-delay: 0.1s; } 
+  .delay-2 { animation-delay: 0.4s; } 
+  .delay-3 { animation-delay: 0.7s; } 
+  .delay-4 { animation-delay: 1.0s; } 
+  .delay-5 { animation-delay: 1.3s; } 
+  .delay-6 { animation-delay: 1.6s; } 
+  .delay-7 { animation-delay: 1.9s; } 
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* =========================================
+     RESPONSIVE DESIGN (MOBILE)
+     ========================================= */
+  @media (max-width: 600px) {
+    .hero-overlap {
+      margin: 0 auto 450px auto; 
+    }
+
+    .envelope-wrapper { 
+      width: 68%; 
+      left: 5%;
+    }
+    
+    .std-wrapper { 
+      width: 58%; 
+      top: 28%; 
+      right: 1%; 
+    }
+
+    .polaroid-hero { 
+      width: 40%; 
+      top: 42%; 
+      left: 3%; 
+    }
+
+    .p2 {
+      top: 98%; 
+      left: 57%; 
+    }
+
+    .p3 {
+      top: 104%; 
+      right: 57%; 
+    }
+
+    .p4 {
+      top: 125%; 
+      right: 60%; 
+    }
+
+    .details-hero {
+      width: 55%; 
+      top: 62%; 
+      left: 5%;
+    }
+    .detail-wrapper {
+      top: 73%; 
+      right: 8%;
+    }
+
+    .rsvp-wrapper {
+      top: 80%;
+      right: 35%;
+    }
+
+    .story-wrapper {
+      width: 70%;
+      top: 110%;
+      right: 25%;
+    }
+  }
+
+</style>

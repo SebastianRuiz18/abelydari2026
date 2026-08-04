@@ -1,0 +1,217 @@
+---
+// src/pages/index.astro
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Abel & Dariana - Boda Valle de Guadalupe</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    
+    <section class="hero-section" id="intro-view">
+      <div class="content-container">
+        
+        <div class="text-header">
+          <p class="subtitle animate-seq delay-1">TIENES CORREO DE</p>
+          <h1 class="names animate-seq delay-2">Abel & Dariana</h1>
+        </div>
+
+        <div class="envelope-wrapper animate-seq delay-3" id="envelope-btn">
+          <img src="/envelope.png" alt="Closed Envelope" class="envelope-img" />
+          
+          <img src="/monogram.png" alt="Monogram" class="monogram-img" />
+          
+          <div class="flowers-container animate-seq delay-4">
+            <img src="/flower-1.png" alt="Flower" class="flower flower-1" />
+            <img src="/flower-2.png" alt="Flower" class="flower flower-2" />
+          </div>
+        </div>
+
+        <p class="action-text animate-seq delay-5">HAZ CLIC EN EL SOBRE PARA ABRIR</p>
+
+      </div>
+    </section>
+
+  </body>
+</html>
+
+<style>
+  /* =========================================
+     CSS PELÓN - Variables y Reset
+     ========================================= */
+  :root {
+    --bg-color: #F7F4EF; /* Tono crema/arena cálido */
+    --text-dark: #2A2321; /* Café oscuro cálido para que no sea un negro frío */
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    overflow-x: hidden; 
+  }
+
+  /* =========================================
+     Estructura Principal
+     ========================================= */
+  .hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100vw;
+    padding: 0 1rem; 
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px; 
+  }
+
+  /* =========================================
+     Tipografía
+     ========================================= */
+  .subtitle, .action-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .names {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 5rem;
+    color: var(--text-dark);
+    margin: 0.5rem 0 2.5rem 0;
+    font-weight: 400;
+    line-height: 1.1; 
+  }
+
+  .action-text {
+    margin-top: 2.5rem;
+  }
+
+  /* ==========================================================
+     El Sobre y sus Elementos
+     ========================================================== */
+  .envelope-wrapper {
+    position: relative;
+    cursor: pointer;
+    display: inline-block; 
+    transition: transform 0.3s ease;
+  }
+
+  .envelope-wrapper:hover {
+    transform: scale(1.02);
+  }
+
+  .envelope-img {
+    width: 450px; 
+    max-width: 100%; 
+    display: block;
+    position: relative;
+    z-index: 2;
+  }
+
+  .monogram-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    width: 22%; 
+    z-index: 3;
+  }
+
+  .flowers-container {
+    position: absolute;
+    bottom: -1%; 
+    right: -3%; 
+    z-index: 4; 
+    pointer-events: none; 
+    width: 25%;
+    height: 25%;
+  }
+
+  .flower {
+    position: absolute;
+    transform-origin: bottom center;
+  }
+
+  .flower-1 {
+    transform: rotate(35deg);
+    width: 55%; 
+    bottom: -35%; 
+    right: 40%; 
+  }
+
+  .flower-2 {
+    transform: rotate(45deg);
+    width: 35%; 
+    bottom: 0%; 
+    right: 80%; 
+  }
+
+  /* =========================================
+     Animaciones Secuenciales
+     ========================================= */
+  .animate-seq {
+    opacity: 0;
+    transform: translateY(40px);
+    animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+  .delay-1 { animation-delay: 0.1s; } 
+  .delay-2 { animation-delay: 0.3s; }
+  .delay-3 { animation-delay: 0.5s; } 
+  .delay-4 { animation-delay: 0.7s; } 
+  .delay-5 { animation-delay: 0.9s; } 
+
+  @keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ==========================================================
+     Responsive Design (Mobile)
+     ========================================================== */
+  @media (max-width: 768px) {
+    .names {
+      font-size: 3rem; 
+      margin: 0.5rem 0 1.5rem 0;
+    }
+    
+    .subtitle, .action-text {
+      font-size: 0.65rem; 
+    }
+
+    .envelope-img {
+      width: 75vw;
+      max-width: 320px; 
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const envelopeBtn = document.getElementById('envelope-btn');
+    if (envelopeBtn) {
+      envelopeBtn.addEventListener('click', () => {
+        window.location.href = '/invitation';
+      });
+    }
+  });
+</script>

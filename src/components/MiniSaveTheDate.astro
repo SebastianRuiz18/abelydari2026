@@ -1,0 +1,106 @@
+---
+// src/components/MiniSaveTheDate.astro
+---
+
+<div class="std-container">
+  <img src="/STD/miniSTD.png" alt="Decorative Frame" class="frame-img" />
+
+  <div class="text-overlay">
+    <p class="join-text">ACOMPÁÑANOS A<br/>CELEBRAR LA BODA DE</p>
+    
+    <h2 class="names-script">Abel <span class="amp">&</span><br/>Dariana</h2>
+    
+    <div class="date-location">
+      <p>24 OCTUBRE 2026</p>
+      <p>VALLE DE GUADALUPE</p>
+      <p>B.C., MÉXICO</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Montserrat:wght@500;600&display=swap');
+
+  .std-container {
+    position: relative;
+    width: 100%;
+    display: block;
+  }
+
+  .frame-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    z-index: 1;
+  }
+
+  .text-overlay {
+    position: absolute;
+    /* MAGIA AQUÍ: Bajamos el inicio del bloque de 30% a 35% */
+    top: 35%; 
+    left: 10%;
+    width: 80%;
+    /* Compensamos la altura de 60% a 53% para que la fecha no se salga por abajo */
+    height: 53%; 
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; 
+    text-align: center;
+    color: #2a2a2a;
+  }
+
+  .join-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem; 
+    letter-spacing: 2px; 
+    line-height: 1.6;
+    font-weight: 600;
+    margin: 0; 
+    text-transform: uppercase;
+  }
+
+  .names-script {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 4rem; 
+    font-weight: 400;
+    line-height: 0.9;
+    margin: 0;
+    transform: rotate(-3deg);
+  }
+
+  .amp { 
+    font-size: 0.7em; 
+  }
+
+  .date-location {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    line-height: 1.9;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .date-location p { 
+    margin: 0; 
+  }
+
+  @media (max-width: 600px) {
+    .join-text { 
+      font-size: 1.8vw; 
+      letter-spacing: 0.5vw; 
+    }
+    
+    .names-script { 
+      font-size: 10.5vw; 
+    }
+    
+    .date-location { 
+      font-size: 1.8vw; 
+      letter-spacing: 0.6vw; 
+    }
+  }
+</style>

@@ -1,0 +1,26 @@
+---
+// src/components/Detail.astro
+---
+
+<div class="detail-container">
+  <img src="/Detail/detail.png" alt="Wedding Details" class="detail-img" />
+</div>
+
+<style>
+  .detail-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .detail-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* Sombrita sutil para darle volumen */
+    filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.15));
+    /* Suavizamos apenitas las esquinas para que se vea más elegante */
+    border-radius: 4px; 
+  }
+</style>

@@ -1,0 +1,552 @@
+---
+// src/pages/rsvp.astro
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RSVP - Abel & Dariana</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    
+    <main class="rsvp-page-container">
+      
+      <header class="rsvp-header animate-up">
+        <h1 class="rsvp-title">Rsvp</h1>
+        <img src="/RSVP/Icon.png" alt="Dos Corazones" class="rsvp-icon" />
+      </header>
+
+      <div class="rsvp-content-area animate-up delay-1">
+        
+        <!-- PASO 1: Ingresar Código -->
+        <div id="step-password" class="step-section active">
+          <p class="intro-text">
+            ¡Nos encantaría que nos acompañes!<br/>
+            Ingresa el código de tu invitación para confirmar tu asistencia.
+          </p>
+          <p class="reply-date">FAVOR DE CONFIRMAR ANTES DEL 10 DE SEPTIEMBRE DE 2026</p>
+          
+          <div class="password-group">
+            <input type="text" id="party-code" class="rsvp-input center-text" placeholder="Ingresa tu código" autocomplete="off" />
+            <p id="code-error" class="error-msg">Código inválido. Por favor, intenta de nuevo.</p>
+            <button type="button" id="verify-btn" class="olive-btn">CONTINUAR</button>
+          </div>
+        </div>
+
+        <!-- PASO 2: Formulario -->
+        <div id="step-form" class="step-section hidden">
+          <form id="rsvp-form" class="rsvp-form">
+            
+            <div id="dynamic-guests-container"></div>
+
+            <div class="shared-fields">
+              <h3 class="group-title">Para los Novios</h3>
+              <input type="text" id="couple-message" class="rsvp-input" placeholder="Mensaje para los novios (Opcional)" />
+              <input type="text" id="song-requests" class="rsvp-input" placeholder="Sugiere una canción para la fiesta (Opcional)" />
+            </div>
+
+            <button type="submit" class="olive-btn submit-btn">CONFIRMAR ASISTENCIA</button>
+          </form>
+        </div>
+
+        <!-- PASO 3: Éxito -->
+        <div id="step-success" class="step-section hidden">
+          <h2 class="success-title">¡Gracias!</h2>
+          <p class="intro-text">
+            Tu confirmación ha sido recibida exitosamente.<br/>
+            ¡Nos vemos en la boda!
+          </p>
+        </div>
+
+      </div>
+
+      <a href="/invitation" class="go-back-btn animate-up delay-2">
+        <svg viewBox="0 0 320 512" class="fa-arrow-left">
+          <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+        </svg>
+        REGRESAR
+      </a>
+
+      <a href="https://www.instagram.com/madebysliver/" target="_blank" rel="noopener noreferrer" class="made-by-sliver fade-in-section">
+        MADE BY SLIVER
+      </a>
+
+    </main>
+
+    <script is:inline>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Aquí irán los códigos reales que te pase Dariana
+        const validCodes = {
+          'TEST': 1,
+          'DUO2': 2,
+          'FAM3': 3,
+          'FAM4': 4
+        };
+
+        const stepPassword = document.getElementById('step-password');
+        const stepForm = document.getElementById('step-form');
+        const stepSuccess = document.getElementById('step-success');
+        
+        const verifyBtn = document.getElementById('verify-btn');
+        const partyCodeInput = document.getElementById('party-code');
+        const codeError = document.getElementById('code-error');
+        
+        const rsvpForm = document.getElementById('rsvp-form');
+        const guestsContainer = document.getElementById('dynamic-guests-container');
+
+        function switchStep(hideElement, showElement) {
+          hideElement.style.opacity = '0';
+          setTimeout(() => {
+            hideElement.classList.remove('active');
+            hideElement.classList.add('hidden');
+            
+            showElement.classList.remove('hidden');
+            void showElement.offsetWidth; 
+            showElement.classList.add('active');
+            showElement.style.opacity = '1';
+          }, 300);
+        }
+
+        function generateGuestFields(count) {
+          guestsContainer.innerHTML = ''; 
+          
+          for (let i = 1; i <= count; i++) {
+            const guestHTML = `
+              <div class="guest-block">
+                <h3 class="guest-title">Invitado ${i}</h3>
+                
+                <input type="text" class="rsvp-input" placeholder="Nombre Completo" required />
+                
+                <div class="attendance-group">
+                  <p class="question-label">¿Asistirás?</p>
+                  <div class="radio-options">
+                    <label class="radio-label">
+                      <input type="radio" name="attending_${i}" value="yes" class="olive-radio" required> Sí, asistiré
+                    </label>
+                    <label class="radio-label">
+                      <input type="radio" name="attending_${i}" value="no" class="olive-radio"> No podré asistir
+                    </label>
+                  </div>
+                </div>
+
+                <input type="text" class="rsvp-input" placeholder="Alergias o Restricciones (Opcional)" />
+              </div>
+            `;
+            guestsContainer.insertAdjacentHTML('beforeend', guestHTML);
+          }
+        }
+
+        verifyBtn.addEventListener('click', () => {
+          const code = partyCodeInput.value.trim().toUpperCase();
+          
+          if (validCodes[code]) {
+            codeError.style.display = 'none';
+            const guestCount = validCodes[code];
+            generateGuestFields(guestCount);
+            switchStep(stepPassword, stepForm);
+          } else {
+            codeError.style.display = 'block';
+          }
+        });
+
+        // ==========================================
+        // LÓGICA DE ENVÍO CON GOOGLE APPS SCRIPT
+        // ==========================================
+        rsvpForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          
+          const submitBtn = rsvpForm.querySelector('.submit-btn');
+          const originalText = submitBtn.textContent;
+          submitBtn.textContent = "ENVIANDO...";
+          submitBtn.disabled = true;
+
+          const code = partyCodeInput.value.trim().toUpperCase();
+          const guestBlocks = guestsContainer.querySelectorAll('.guest-block');
+          const guestsData = [];
+
+          guestBlocks.forEach((block, index) => {
+            const i = index + 1;
+            const name = block.querySelector('input[type="text"]').value;
+            const attendingRadio = block.querySelector(`input[name="attending_${i}"]:checked`);
+            const attending = attendingRadio ? (attendingRadio.value === 'yes' ? 'Sí, asistiré' : 'No podré asistir') : '';
+            const diet = block.querySelectorAll('input[type="text"]')[1].value; 
+
+            guestsData.push({ name, attending, diet });
+          });
+
+          const payload = {
+            code: code,
+            guests: guestsData,
+            message: document.getElementById('couple-message').value,
+            song: document.getElementById('song-requests').value
+          };
+
+          // LA URL DE TU API DE GOOGLE
+          const scriptURL = 'https://script.google.com/macros/s/AKfycbzEO5CBGQUViVYiq-xzTXA0RpCbYQNOLUqjsw4o86KoBx0gmXZqYYg8Z6ue7tte0MhW/exec';
+
+          fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          })
+          .then(() => {
+            switchStep(stepForm, stepSuccess);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            alert('Hubo un error. Por favor, intenta de nuevo.');
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          });
+        });
+
+      });
+    </script>
+
+  </body>
+</html>
+
+<style>
+  body {
+    margin: 0;
+    /* MAGIA AQUÍ: Fondo y Texto Consistentes */
+    background-color: #F7F4EF; 
+    font-family: 'Montserrat', sans-serif;
+    color: #2A2321; 
+    overflow-x: hidden;
+  }
+
+  .rsvp-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 80px 20px 40px 20px;
+    box-sizing: border-box;
+  }
+
+  .rsvp-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .rsvp-title {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 6.5rem;
+    font-weight: 400;
+    color: inherit;
+    margin: 0;
+    line-height: 0.8;
+  }
+
+  .rsvp-icon {
+    width: 130px;
+    height: auto;
+    margin-top: 20px;
+  }
+
+  .rsvp-content-area {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+    flex-grow: 1; 
+  }
+
+  .step-section {
+    width: 100%;
+    transition: opacity 0.3s ease;
+  }
+
+  .step-section.hidden {
+    display: none;
+    opacity: 0;
+  }
+
+  .step-section.active {
+    display: block;
+    opacity: 1;
+  }
+
+  .intro-text {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: inherit;
+    margin: 0 0 30px 0;
+  }
+
+  .reply-date {
+    font-size: 0.85rem;
+    letter-spacing: 3px; 
+    font-weight: 600;
+    text-transform: uppercase;
+    color: inherit;
+    margin-bottom: 40px;
+  }
+
+  .password-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .olive-btn {
+    display: inline-block;
+    /* MAGIA AQUÍ: Botones Burgundy */
+    background-color: #5B2326; 
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+    border: none;
+    padding: 18px 45px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 15px;
+  }
+
+  .olive-btn:hover {
+    background-color: #3D1517; 
+    transform: scale(1.02);
+  }
+
+  .submit-btn {
+    width: 100%;
+    margin-top: 40px;
+  }
+
+  .error-msg {
+    display: none;
+    color: #c0392b;
+    font-size: 0.8rem;
+    margin: -10px 0 0 0;
+  }
+
+  .success-title {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 5rem;
+    font-weight: 400;
+    /* Título de éxito en Burgundy */
+    color: #5B2326; 
+    margin: 0 0 20px 0;
+  }
+
+  .go-back-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: inherit; 
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    margin-top: 80px;
+  }
+
+  .go-back-btn:hover {
+    opacity: 0.7;
+    transform: translateX(-5px);
+  }
+
+  .fa-arrow-left {
+    width: 10px;
+    height: 10px;
+    fill: currentColor;
+  }
+
+  .animate-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+
+  .delay-1 { animation-delay: 0.3s; }
+  .delay-2 { animation-delay: 0.6s; }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .rsvp-page-container { padding: 50px 15px 30px 15px; }
+    .rsvp-title { font-size: 5rem; }
+    .rsvp-icon { width: 100px; }
+    .intro-text { font-size: 0.85rem; }
+    .reply-date { font-size: 0.65rem; letter-spacing: 2px; }
+    .olive-btn { padding: 15px 30px; font-size: 0.75rem; }
+    .success-title { font-size: 4rem; }
+    .go-back-btn { margin-top: 60px; font-size: 0.7rem; }
+  }
+</style>
+
+<style is:global>
+  .rsvp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0; 
+    text-align: left; 
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+  }
+
+  .guest-block {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-bottom: 50px;
+    margin-bottom: 50px;
+    border-bottom: 1px solid #E8E2DA; /* Línea separadora beige cálida */
+  }
+
+  .guest-block:last-child {
+    border-bottom: none;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+
+  .guest-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: inherit;
+    margin: 0;
+  }
+
+  .rsvp-input {
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    padding: 12px 0;
+    border: none;
+    border-bottom: 1px solid #D2C8C1; /* Línea de input beige/gris cálido */
+    background-color: transparent;
+    color: inherit;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+
+  .center-text {
+    text-align: center; 
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .rsvp-input:focus {
+    /* Focus del input en Burgundy */
+    border-bottom: 1px solid #5B2326;
+  }
+
+  .rsvp-input::placeholder {
+    color: #999999;
+  }
+
+  .attendance-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .question-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    color: #4A403D; /* Café medio */
+    margin: 0;
+  }
+
+  .radio-options {
+    display: flex;
+    gap: 30px; 
+  }
+
+  .radio-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  .olive-radio {
+    /* Botones de radio en Burgundy */
+    accent-color: #5B2326; 
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .shared-fields {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 30px;
+    margin-top: 20px;
+  }
+
+  .group-title {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 3.5rem;
+    font-weight: 400;
+    color: inherit;
+    margin: 0 0 10px 0;
+    text-align: center;
+  }
+
+  .made-by-sliver {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 5px;
+      color: inherit;
+      text-decoration: none;
+      opacity: 0.35;
+      transition: opacity 0.4s ease;
+      margin-top: 80px; 
+      text-align: center;
+  }
+
+  .made-by-sliver:hover {
+      opacity: 1;
+  }
+
+  @media (max-width: 600px) {
+    .guest-block {
+      padding-bottom: 40px;
+      margin-bottom: 40px;
+      gap: 25px;
+    }
+    .radio-options {
+      flex-direction: column; 
+      gap: 15px;
+    }
+    .group-title {
+      font-size: 3rem;
+    }
+
+    .made-by-sliver {
+      font-size: 0.5rem;
+      letter-spacing: 4px;
+      margin-top: 60px;
+    }
+  }
+</style>
