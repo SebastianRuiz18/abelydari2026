@@ -1,6 +1,8 @@
 ---
 // src/pages/details.astro
 import Polaroid from '../components/Polaroid.astro'; 
+import { ClientRouter } from 'astro:transitions';
+import MusicPlayer from '../components/MusicPlayer.astro';
 ---
 
 <html lang="es">
@@ -8,6 +10,8 @@ import Polaroid from '../components/Polaroid.astro';
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Abel & Dariana - Boda Valle de Guadalupe</title>
+
+    <ClientRouter />
 
     <link rel="icon" type="image/png" href="/monog.png" />
     <link rel="apple-touch-icon" href="/monog.png" />
@@ -17,6 +21,7 @@ import Polaroid from '../components/Polaroid.astro';
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
   </head>
   <body>
+    <MusicPlayer />
     
     <header class="details-hero">
       <div class="hero-bg"></div>
@@ -179,7 +184,8 @@ import Polaroid from '../components/Polaroid.astro';
     </main>
 
     <script is:inline>
-      document.addEventListener("DOMContentLoaded", function() {
+      // MAGIA AQUÍ: Cambiamos DOMContentLoaded por astro:page-load
+      document.addEventListener("astro:page-load", function() {
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {

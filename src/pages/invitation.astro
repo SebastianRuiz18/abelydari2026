@@ -1,5 +1,7 @@
 ---
 // src/pages/invitation.astro
+import { ClientRouter } from 'astro:transitions';
+import MusicPlayer from '../components/MusicPlayer.astro';
 import OpenedEnvelope from '../components/OpenedEnvelope.astro';
 import MiniSaveTheDate from '../components/MiniSaveTheDate.astro';
 import Polaroid from '../components/Polaroid.astro'; 
@@ -17,6 +19,8 @@ import StoryBTN from '../components/storyBTN.astro';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Abel & Dariana - Boda Valle de Guadalupe</title>
 
+    <ClientRouter />
+
     <link rel="icon" type="image/png" href="/monog.png" />
     <link rel="apple-touch-icon" href="/monog.png" />
     
@@ -25,6 +29,7 @@ import StoryBTN from '../components/storyBTN.astro';
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
   </head>
   <body>
+    <MusicPlayer />
     <main class="invitation-container">
 
       <section class="section section-hero">

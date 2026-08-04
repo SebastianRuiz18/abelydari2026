@@ -1,5 +1,7 @@
 ---
 // src/pages/index.astro
+import { ClientRouter } from 'astro:transitions';
+import MusicPlayer from '../components/MusicPlayer.astro';
 ---
 
 <html lang="es">
@@ -9,6 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Abel & Dariana - Boda Valle de Guadalupe</title>
 
+    <!-- MAGIA AQUÍ: Usamos ClientRouter en vez de ViewTransitions -->
+    <ClientRouter />
+    
     <link rel="icon" type="image/png" href="/monog.png" />
     <link rel="apple-touch-icon" href="/monog.png" />
     
@@ -18,11 +23,14 @@
   </head>
   <body>
     
+    <!-- Aquí agregamos el reproductor de música -->
+    <MusicPlayer />
+
     <section class="hero-section" id="intro-view">
       <div class="content-container">
         
         <div class="text-header">
-          <p class="subtitle animate-seq delay-1">TIENES CORREO DE</p>
+          <p class="subtitle animate-seq delay-1">TIENES UN CORREO DE</p>
           <h1 class="names animate-seq delay-2">Abel & Dariana</h1>
         </div>
 
@@ -50,8 +58,8 @@
      CSS PELÓN - Variables y Reset
      ========================================= */
   :root {
-    --bg-color: #F7F4EF; /* Tono crema/arena cálido */
-    --text-dark: #2A2321; /* Café oscuro cálido para que no sea un negro frío */
+    --bg-color: #F7F4EF; 
+    --text-dark: #2A2321; 
   }
 
   body {
@@ -209,11 +217,13 @@
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  import { navigate } from 'astro:transitions/client';
+
+  document.addEventListener('astro:page-load', () => {
     const envelopeBtn = document.getElementById('envelope-btn');
     if (envelopeBtn) {
       envelopeBtn.addEventListener('click', () => {
-        window.location.href = '/invitation';
+        navigate('/invitation');
       });
     }
   });

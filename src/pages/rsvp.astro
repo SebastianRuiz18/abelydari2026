@@ -1,5 +1,7 @@
 ---
 // src/pages/rsvp.astro
+import { ClientRouter } from 'astro:transitions';
+import MusicPlayer from '../components/MusicPlayer.astro';
 ---
 
 <html lang="es">
@@ -7,6 +9,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RSVP - Abel & Dariana</title>
+
+    <ClientRouter />
 
     <link rel="icon" type="image/png" href="/monog.png" />
     <link rel="apple-touch-icon" href="/monog.png" />
@@ -16,6 +20,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
   </head>
   <body>
+
+    <MusicPlayer />
     
     <main class="rsvp-page-container">
       
@@ -82,7 +88,8 @@
     </main>
 
     <script is:inline>
-      document.addEventListener("DOMContentLoaded", () => {
+      // MAGIA AQUÍ: Cambiamos DOMContentLoaded por astro:page-load
+      document.addEventListener("astro:page-load", () => {
         // Aquí irán los códigos reales que te pase Dariana
         const validCodes = {
           'TEST': 1,
@@ -101,6 +108,8 @@
         
         const rsvpForm = document.getElementById('rsvp-form');
         const guestsContainer = document.getElementById('dynamic-guests-container');
+
+        if (!verifyBtn) return; // Evita errores si el botón no está en el DOM
 
         function switchStep(hideElement, showElement) {
           hideElement.style.opacity = '0';
@@ -160,57 +169,58 @@
         // ==========================================
         // LÓGICA DE ENVÍO CON GOOGLE APPS SCRIPT
         // ==========================================
-        rsvpForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          
-          const submitBtn = rsvpForm.querySelector('.submit-btn');
-          const originalText = submitBtn.textContent;
-          submitBtn.textContent = "ENVIANDO...";
-          submitBtn.disabled = true;
+        if (rsvpForm) {
+          rsvpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const submitBtn = rsvpForm.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = "ENVIANDO...";
+            submitBtn.disabled = true;
 
-          const code = partyCodeInput.value.trim().toUpperCase();
-          const guestBlocks = guestsContainer.querySelectorAll('.guest-block');
-          const guestsData = [];
+            const code = partyCodeInput.value.trim().toUpperCase();
+            const guestBlocks = guestsContainer.querySelectorAll('.guest-block');
+            const guestsData = [];
 
-          guestBlocks.forEach((block, index) => {
-            const i = index + 1;
-            const name = block.querySelector('input[type="text"]').value;
-            const attendingRadio = block.querySelector(`input[name="attending_${i}"]:checked`);
-            const attending = attendingRadio ? (attendingRadio.value === 'yes' ? 'Sí, asistiré' : 'No podré asistir') : '';
-            const diet = block.querySelectorAll('input[type="text"]')[1].value; 
+            guestBlocks.forEach((block, index) => {
+              const i = index + 1;
+              const name = block.querySelector('input[type="text"]').value;
+              const attendingRadio = block.querySelector(`input[name="attending_${i}"]:checked`);
+              const attending = attendingRadio ? (attendingRadio.value === 'yes' ? 'Sí, asistiré' : 'No podré asistir') : '';
+              const diet = block.querySelectorAll('input[type="text"]')[1].value; 
 
-            guestsData.push({ name, attending, diet });
+              guestsData.push({ name, attending, diet });
+            });
+
+            const payload = {
+              code: code,
+              guests: guestsData,
+              message: document.getElementById('couple-message').value,
+              song: document.getElementById('song-requests').value
+            };
+
+            // LA URL DE TU API DE GOOGLE
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzEO5CBGQUViVYiq-xzTXA0RpCbYQNOLUqjsw4o86KoBx0gmXZqYYg8Z6ue7tte0MhW/exec';
+
+            fetch(scriptURL, {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(payload)
+            })
+            .then(() => {
+              switchStep(stepForm, stepSuccess);
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+              alert('Hubo un error. Por favor, intenta de nuevo.');
+              submitBtn.textContent = originalText;
+              submitBtn.disabled = false;
+            });
           });
-
-          const payload = {
-            code: code,
-            guests: guestsData,
-            message: document.getElementById('couple-message').value,
-            song: document.getElementById('song-requests').value
-          };
-
-          // LA URL DE TU API DE GOOGLE
-          const scriptURL = 'https://script.google.com/macros/s/AKfycbzEO5CBGQUViVYiq-xzTXA0RpCbYQNOLUqjsw4o86KoBx0gmXZqYYg8Z6ue7tte0MhW/exec';
-
-          fetch(scriptURL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-          })
-          .then(() => {
-            switchStep(stepForm, stepSuccess);
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-            alert('Hubo un error. Por favor, intenta de nuevo.');
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-          });
-        });
-
+        }
       });
     </script>
 
@@ -220,7 +230,6 @@
 <style>
   body {
     margin: 0;
-    /* MAGIA AQUÍ: Fondo y Texto Consistentes */
     background-color: #F7F4EF; 
     font-family: 'Montserrat', sans-serif;
     color: #2A2321; 
@@ -307,7 +316,6 @@
 
   .olive-btn {
     display: inline-block;
-    /* MAGIA AQUÍ: Botones Burgundy */
     background-color: #5B2326; 
     color: #ffffff;
     font-family: 'Montserrat', sans-serif;
@@ -343,7 +351,6 @@
     font-family: 'Pinyon Script', cursive;
     font-size: 5rem;
     font-weight: 400;
-    /* Título de éxito en Burgundy */
     color: #5B2326; 
     margin: 0 0 20px 0;
   }
@@ -417,7 +424,7 @@
     gap: 30px;
     padding-bottom: 50px;
     margin-bottom: 50px;
-    border-bottom: 1px solid #E8E2DA; /* Línea separadora beige cálida */
+    border-bottom: 1px solid #E8E2DA; 
   }
 
   .guest-block:last-child {
@@ -440,7 +447,7 @@
     font-size: 0.9rem;
     padding: 12px 0;
     border: none;
-    border-bottom: 1px solid #D2C8C1; /* Línea de input beige/gris cálido */
+    border-bottom: 1px solid #D2C8C1; 
     background-color: transparent;
     color: inherit;
     outline: none;
@@ -454,7 +461,6 @@
   }
 
   .rsvp-input:focus {
-    /* Focus del input en Burgundy */
     border-bottom: 1px solid #5B2326;
   }
 
@@ -471,7 +477,7 @@
   .question-label {
     font-family: 'Montserrat', sans-serif;
     font-size: 0.9rem;
-    color: #4A403D; /* Café medio */
+    color: #4A403D; 
     margin: 0;
   }
 
@@ -491,7 +497,6 @@
   }
 
   .olive-radio {
-    /* Botones de radio en Burgundy */
     accent-color: #5B2326; 
     width: 16px;
     height: 16px;

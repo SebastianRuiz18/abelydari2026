@@ -1,0 +1,102 @@
+---
+// src/components/MusicPlayer.astro
+---
+
+<!-- La directiva transition:persist es la magia que evita que el audio se corte -->
+<div id="persistent-music-player" transition:persist>
+  <audio id="bg-music" loop preload="auto">
+    <source src="/music/cancion.mp3" type="audio/mpeg" />
+  </audio>
+
+  <button id="music-toggle" class="music-btn" aria-label="Reproducir música">
+    <!-- Icono de Play -->
+    <svg id="icon-play" viewBox="0 0 384 512">
+      <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/>
+    </svg>
+    <!-- Icono de Pause (oculto por defecto) -->
+    <svg id="icon-pause" viewBox="0 0 320 512" style="display: none;">
+      <path d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 48 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48h-32z"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+  // En Astro con ViewTransitions, usamos 'astro:page-load' en vez de 'DOMContentLoaded'
+  document.addEventListener('astro:page-load', () => {
+    const audio = document.getElementById('bg-music');
+    const btn = document.getElementById('music-toggle');
+    const playIcon = document.getElementById('icon-play');
+    const pauseIcon = document.getElementById('icon-pause');
+
+    if (!audio || !btn) return;
+
+    // Mantener el estado visual del botón al cambiar de página
+    if (!audio.paused) {
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = 'block';
+      btn.classList.add('playing');
+    }
+
+    btn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+        btn.classList.add('playing');
+      } else {
+        audio.pause();
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+        btn.classList.remove('playing');
+      }
+    });
+  });
+</script>
+
+<style>
+  .music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    background-color: #5B2326; /* Color Burgundy */
+    border: none;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    color: white;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .music-btn:hover {
+    transform: scale(1.1);
+    background-color: #3D1517;
+  }
+
+  /* Animación tipo "latido" cuando está sonando */
+  .music-btn.playing {
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(91, 35, 38, 0.7); }
+    70% { box-shadow: 0 0 0 12px rgba(91, 35, 38, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(91, 35, 38, 0); }
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    margin-left: 2px; /* Centrado visual sutil para el ícono de play */
+  }
+  
+  #icon-pause {
+    margin-left: 0;
+  }
+</style>
