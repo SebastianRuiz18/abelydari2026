@@ -2,7 +2,7 @@
 // src/components/MusicPlayer.astro
 ---
 
-<!-- La directiva transition:persist es la magia que evita que el audio se corte -->
+<!-- La directiva transition:persist evita que el audio se corte -->
 <div id="persistent-music-player" transition:persist>
   <audio id="bg-music" loop preload="auto">
     <source src="/music/cancion.mp3" type="audio/mpeg" />
@@ -21,7 +21,7 @@
 </div>
 
 <script>
-  // En Astro con ViewTransitions, usamos 'astro:page-load' en vez de 'DOMContentLoaded'
+  // MAGIA AQUÍ: Cambiamos DOMContentLoaded a astro:page-load
   document.addEventListener('astro:page-load', () => {
     const audio = document.getElementById('bg-music');
     const btn = document.getElementById('music-toggle');
@@ -35,19 +35,27 @@
       playIcon.style.display = 'none';
       pauseIcon.style.display = 'block';
       btn.classList.add('playing');
+    } else {
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+      btn.classList.remove('playing');
     }
 
-    btn.addEventListener('click', () => {
+    // Le quitamos event listeners anteriores para evitar clics duplicados
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+
+    newBtn.addEventListener('click', () => {
       if (audio.paused) {
         audio.play();
-        playIcon.style.display = 'none';
-        pauseIcon.style.display = 'block';
-        btn.classList.add('playing');
+        newBtn.querySelector('#icon-play').style.display = 'none';
+        newBtn.querySelector('#icon-pause').style.display = 'block';
+        newBtn.classList.add('playing');
       } else {
         audio.pause();
-        playIcon.style.display = 'block';
-        pauseIcon.style.display = 'none';
-        btn.classList.remove('playing');
+        newBtn.querySelector('#icon-play').style.display = 'block';
+        newBtn.querySelector('#icon-pause').style.display = 'none';
+        newBtn.classList.remove('playing');
       }
     });
   });
